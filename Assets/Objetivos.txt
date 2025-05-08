@@ -1,0 +1,109 @@
+🧪 Roteiro de Laboratório – Genéricos em C#
+Disciplina: Programação Orientada a Objetos
+Linguagem: C#
+Tema: Introdução e Aplicação de Genéricos
+Objetivo: Compreender, implementar e aplicar generics em classes, métodos e interfaces.
+
+✅ Pré-requisitos
+Antes de iniciar este laboratório, você deve:
+
+Entender os conceitos de classe e método.
+
+Ter familiaridade com listas (List<T>) e orientação a objetos em C#.
+
+Saber como criar e utilizar interfaces.
+
+Teste cada etapa no Program.cs para entender o compartamento. Mantenha o código de todos os testes; pode ir comentando a medida que for avançando nas etapas.
+Compactar o projeto completo, com o código fonte e enviar em formato .zip.
+🔧 Ambiente de Desenvolvimento
+Você pode usar qualquer ambiente compatível com C#:
+
+Visual Studio
+
+Visual Studio Code com extensão C#
+
+.NET CLI
+
+🧭 Etapas do Laboratório
+🔹 Etapa 1 – Introdução ao Problema
+Atividade 1.1 – Classe sem generics
+
+Crie uma classe chamada CaixaObjeto que armazene qualquer valor como object.
+
+class CaixaObjeto
+{
+    public object Valor { get; set; }
+}
+Teste com tipos diferentes e tente acessar sem cast. O que acontece?
+
+Atividade 1.2 – Refatorando com Generics
+
+Crie agora uma versão genérica chamada Caixa<T>:
+
+class Caixa<T>
+{
+    public T Valor { get; set; }
+}
+Use com int, string, DateTime e compare a clareza e segurança com a versão anterior.
+
+🔹 Etapa 2 – Métodos e Classes Genéricas
+Atividade 2.1 – Método Genérico Trocar
+
+Implemente um método genérico para trocar dois valores:
+
+public static void Trocar<T>(ref T a, ref T b)
+{
+    T temp = a;
+    a = b;
+    b = temp;
+}
+Teste com tipos diferentes.
+
+Atividade 2.2 – Classe Par Genérica
+
+Crie uma classe Par<T1, T2> que armazene dois valores e os imprima.
+
+class Par<T1, T2>
+{
+    public T1 Primeiro { get; set; }
+    public T2 Segundo { get; set; }
+    public void Exibir()
+    {
+        Console.WriteLine($"({Primeiro}, {Segundo})");
+    }
+}
+🔹 Etapa 3 – Interface Genérica + Implementação
+Atividade 3.1 – Criar interface genérica IRepositorio<T>
+
+public interface IRepositorio<T>
+{
+    void Adicionar(T item);
+    List<T> ListarTodos();
+}
+Atividade 3.2 – Implementar RepositorioEmMemoria<T>
+
+public class RepositorioEmMemoria<T> : IRepositorio<T>
+{
+    private List<T> itens = new List<T>();
+
+    public void Adicionar(T item) => itens.Add(item);
+
+    public List<T> ListarTodos() => itens;
+}
+Teste com uma classe Produto simples.
+
+🔹 Etapa 4 – Restrições em Generics
+Atividade 4.1 – Restrição com Construtor Padrão
+
+public class RepositorioComInstancia<T> where T : new()
+{
+    public T CriarItem() => new T();
+}
+Use com uma classe que tenha construtor vazio.
+
+Atividade 4.2 – Restrição com Herança
+
+Crie uma classe base Entidade com int Id. Reescreva o repositório com:
+
+where T : Entidade
+Adicione método BuscarPorId(int id).
